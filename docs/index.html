@@ -325,13 +325,13 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;font:600 .76rem/1 "JetBrains 
   <div class="subhero">
     <div>
       <p class="disclaimer"><span class="marker"></span> INDEPENDENT TOOL · NOT AFFILIATED WITH BLACKSMITH</p>
-      <p class="tagline">Your Blacksmith CI status, in your menu bar.</p>
+      <p class="tagline">Your Blacksmith CI status, in your menu&nbsp;bar.</p>
       <p class="lede">A tiny, native macOS app that watches the <em>Blacksmith</em> public status page and your live runners — so you know <em>before the queue burns</em> whether to merge, re-run, or take a walk.</p>
       <div class="cta">
-        <a class="btn btn-primary" href="#install">Get BlackBar</a>
+        <a class="btn btn-primary" href="https://github.com/openclaw/BlackBar/releases/tag/v0.1.1" rel="noopener">Download v0.1.1</a>
         <a class="btn btn-ghost" href="https://github.com/openclaw/BlackBar" rel="noopener">View Source</a>
       </div>
-      <p class="note">Free. Open source. Zero telemetry. Your Blacksmith session stays in your Keychain.</p>
+      <p class="note">Signed &amp; notarized · macOS 14+ · Free · MIT · Zero telemetry · Auto-updates via Sparkle.</p>
     </div>
 
     <!-- Real screenshot of the BlackBar dropdown menu -->
@@ -396,15 +396,26 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;font:600 .76rem/1 "JetBrains 
 <!-- Install -->
 <section class="section" id="install">
   <h2>INSTALL.</h2>
-  <p class="lead">Source build for now. Notarized binaries soon — star the repo if you want one.</p>
+  <p class="lead">Two ways. Pick one.</p>
 
+  <h3 style="font:700 .82rem/1 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px">01 · Homebrew</h3>
+  <div class="install" id="install-brew">
+    <pre id="install-cmd-brew"><span class="p">$ </span>brew install --cask steipete/tap/blackbar</pre>
+    <button class="copy-btn" data-target="install-cmd-brew" type="button">COPY</button>
+  </div>
+
+  <h3 style="font:700 .82rem/1 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px">02 · Direct download</h3>
+  <p style="margin:0 0 14px"><a class="btn btn-primary" href="https://github.com/openclaw/BlackBar/releases/tag/v0.1.1" rel="noopener" style="padding:14px 22px">Download BlackBar v0.1.1.zip</a></p>
+  <p class="note">Unzip and drag <code style="font-family:'JetBrains Mono',ui-monospace,monospace;background:rgba(0,0,0,.08);padding:1px 6px;border-radius:3px">BlackBar.app</code> into <code style="font-family:'JetBrains Mono',ui-monospace,monospace;background:rgba(0,0,0,.08);padding:1px 6px;border-radius:3px">/Applications</code>. Signed, notarized, auto-updates via Sparkle.</p>
+
+  <h3 style="font:700 .82rem/1 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px">03 · Build from source</h3>
   <div class="install" id="install-card">
     <pre id="install-cmd"><span class="p">$ </span>git clone https://github.com/openclaw/BlackBar.git
 <span class="p">$ </span>cd BlackBar &amp;&amp; make app
 <span class="p">$ </span>open build/BlackBar.app</pre>
-    <button id="copy" type="button">COPY</button>
+    <button class="copy-btn" data-target="install-cmd" type="button">COPY</button>
   </div>
-  <p class="note">Requires macOS 14+. Swift 6 toolchain. <a href="https://github.com/openclaw/BlackBar#build-run">Full build instructions →</a></p>
+  <p class="note">Requires macOS 14+ and a Swift 6 toolchain. <a href="https://github.com/openclaw/BlackBar#install" rel="noopener">Full instructions →</a></p>
 </section>
 
 <!-- FAQ -->
@@ -463,16 +474,17 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;font:600 .76rem/1 "JetBrains 
 <script>
 // install copy
 (function(){
-  var btn = document.getElementById('copy');
-  var cmd = document.getElementById('install-cmd');
-  if(!btn || !cmd) return;
-  btn.addEventListener('click', function(){
-    var text = cmd.innerText.replace(/^\s*\$\s?/gm, '');
-    navigator.clipboard.writeText(text).then(function(){
-      btn.classList.add('copied');
-      var prev = btn.textContent;
-      btn.textContent = 'COPIED';
-      setTimeout(function(){ btn.classList.remove('copied'); btn.textContent = prev; }, 1500);
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var cmd = document.getElementById(btn.dataset.target);
+      if(!cmd) return;
+      var text = cmd.innerText.replace(/^\s*\$\s?/gm, '');
+      navigator.clipboard.writeText(text).then(function(){
+        btn.classList.add('copied');
+        var prev = btn.textContent;
+        btn.textContent = 'COPIED';
+        setTimeout(function(){ btn.classList.remove('copied'); btn.textContent = prev; }, 1500);
+      });
     });
   });
 })();

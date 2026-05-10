@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.1.3 - Unreleased
+## 0.1.3 - 2026-05-10
+
+- Move GitHub release, appcast, documentation, and update-feed references to `steipete/BlackBar`.
 
 ## 0.1.2 - 2026-05-10
 

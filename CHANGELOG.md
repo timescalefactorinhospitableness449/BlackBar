@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.1.3 - Unreleased
+
 ## 0.1.2 - 2026-05-10
 
 - Restore native macOS status item tinting by using a template graph image and plain status button title, so menu bar text and graph adapt correctly across light, dark, and tinted backgrounds.

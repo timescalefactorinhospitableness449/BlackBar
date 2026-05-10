@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.1.2 - Unreleased
+
 ## 0.1.1 - 2026-05-10
 
 - Use high-contrast menu bar text and graph rendering for bright Blacksmith-style desktop backgrounds.

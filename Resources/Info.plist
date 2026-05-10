@@ -6,6 +6,8 @@
 	<string>BlackBar</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.steipete.blackbar</string>
+	<key>CFBundleIconFile</key>
+	<string>Icon</string>
 	<key>CFBundleName</key>
 	<string>BlackBar</string>
 	<key>CFBundlePackageType</key>
@@ -18,7 +20,17 @@
 	<string>14.0</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>LSMultipleInstancesProhibited</key>
+	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2026 Peter Steinberger</string>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/openclaw/BlackBar/main/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>AGCY8w5vHirVfGGDGc8Szc5iuOqupZSh9pMj/Qs67XI=</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUEnableInstallerLauncherService</key>
+	<true/>
 </dict>
 </plist>

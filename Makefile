@@ -1,21 +1,28 @@
-.PHONY: build app run clean
+.PHONY: build app run ci release clean
 
 APP_NAME := BlackBar
-APP_DIR := build/$(APP_NAME).app
-BIN := .build/release/$(APP_NAME)
 
 build:
 	swift build -c release
 
 app: build
-	rm -rf "$(APP_DIR)"
-	mkdir -p "$(APP_DIR)/Contents/MacOS" "$(APP_DIR)/Contents/Resources"
-	cp "$(BIN)" "$(APP_DIR)/Contents/MacOS/$(APP_NAME)"
-	cp Resources/Info.plist "$(APP_DIR)/Contents/Info.plist"
-	chmod +x "$(APP_DIR)/Contents/MacOS/$(APP_NAME)"
+	SKIP_BUILD=1 ./Scripts/package_app.sh release
+	rm -rf "build/$(APP_NAME).app"
+	mkdir -p build
+	APP_DIR="$$(find .build -path "*/release/$(APP_NAME).app" -type d | head -n 1)"; \
+	test -n "$$APP_DIR"; \
+	cp -R "$$APP_DIR" "build/$(APP_NAME).app"
 
 run: app
-	open "$(APP_DIR)"
+	open "build/$(APP_NAME).app"
+
+ci:
+	swift package resolve
+	swift build -c release
+	$(MAKE) app
+
+release:
+	./Scripts/release.sh
 
 clean:
-	rm -rf .build build
+	rm -rf .build build *.zip *.dSYM

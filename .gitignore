@@ -2,3 +2,6 @@
 build/
 .DS_Store
 DerivedData/
+*.zip
+*.dSYM
+Assets/Icon.iconset/

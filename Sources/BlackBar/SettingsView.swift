@@ -215,6 +215,9 @@ private struct DashboardSettingsView: View {
 }
 
 private struct AboutSettingsView: View {
+    @AppStorage("autoUpdateEnabled") private var autoUpdateEnabled = true
+    @State private var didSyncUpdater = false
+
     var body: some View {
         VStack(spacing: 10) {
             Image(systemName: "cpu")
@@ -226,8 +229,37 @@ private struct AboutSettingsView: View {
             Text("0.1.0")
                 .font(.caption)
                 .foregroundStyle(.tertiary)
+
+            Divider()
+                .padding(.vertical, 8)
+
+            if SparkleController.shared.canCheckForUpdates {
+                Toggle("Check for updates automatically", isOn: self.$autoUpdateEnabled)
+                    .toggleStyle(.checkbox)
+                Button("Check for Updates…") {
+                    SparkleController.shared.checkForUpdates()
+                }
+            } else {
+                Text("Updates unavailable in this build.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(20)
+        .onAppear {
+            guard !self.didSyncUpdater else { return }
+            if SparkleController.shared.canCheckForUpdates {
+                SparkleController.shared.automaticallyChecksForUpdates = self.autoUpdateEnabled
+                SparkleController.shared.automaticallyDownloadsUpdates = self.autoUpdateEnabled
+            }
+            self.didSyncUpdater = true
+        }
+        .onChange(of: self.autoUpdateEnabled) { _, newValue in
+            if SparkleController.shared.canCheckForUpdates {
+                SparkleController.shared.automaticallyChecksForUpdates = newValue
+                SparkleController.shared.automaticallyDownloadsUpdates = newValue
+            }
+        }
     }
 }

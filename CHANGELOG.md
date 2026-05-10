@@ -1,0 +1,15 @@
+# Changelog
+
+## 0.1.0 - Unreleased
+
+- Add the initial native macOS menu bar app for Blacksmith CI status and live vCPU usage.
+- Show current Blacksmith vCPU and active job totals in the menu bar with a compact history graph.
+- Add an AppKit-native menu with public Blacksmith status, active and queued counts, API diagnostics, manual refresh, and direct links to Blacksmith and GitHub Actions.
+- Show live platform buckets for `amd64`, `arm64`, and `macos` usage when per-job details are not available.
+- Add GitHub login through Blacksmith's OAuth flow in a native WebKit window.
+- Store the Blacksmith session cookie in Keychain and cache it in memory after launch to avoid repeated Keychain prompts.
+- Add a native Settings window for organization, repository filter, and polling interval.
+- Add dynamic menu bar sizing for large vCPU counts and fixed-width wrapped diagnostics in the menu.
+- Add a Blacksmith-inspired macOS app icon with neon yellow, blocky black glyphs, and vCPU activity bars.
+- Add Sparkle-based automatic updates for signed release builds.
+- Add release packaging, codesigning, notarization, appcast, release-note helpers, live-update testing, and macOS CI.

@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.1.1 - Unreleased
+## 0.1.1 - 2026-05-10
+
+- Use high-contrast menu bar text and graph rendering for bright Blacksmith-style desktop backgrounds.
+- Remove the duplicate status line from the menu details.
+- Replace the app icon artwork with a full-bleed Blacksmith-style neon tile that avoids the white inset gap in Finder and Launchpad.
 
 ## 0.1.0 - 2026-05-10
 

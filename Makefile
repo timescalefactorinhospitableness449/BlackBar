@@ -9,9 +9,10 @@ app: build
 	SKIP_BUILD=1 ./Scripts/package_app.sh release
 	rm -rf "build/$(APP_NAME).app"
 	mkdir -p build
-	APP_DIR="$$(find .build -path "*/release/$(APP_NAME).app" -type d | head -n 1)"; \
+	APP_DIR=".build/apple/Products/Release/$(APP_NAME).app"; \
+	if [ ! -d "$$APP_DIR" ]; then APP_DIR="$$(find .build -path "*/release/$(APP_NAME).app" -type d | head -n 1)"; fi; \
 	test -n "$$APP_DIR"; \
-	cp -R "$$APP_DIR" "build/$(APP_NAME).app"
+	ditto "$$APP_DIR" "build/$(APP_NAME).app"
 
 run: app
 	open "build/$(APP_NAME).app"

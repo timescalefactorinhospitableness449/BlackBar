@@ -23,7 +23,7 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
 
     func start() {
         let item = self.statusBar.statusItem(withLength: NSStatusItem.variableLength)
-        item.autosaveName = "blackbar-main"
+        item.autosaveName = "blackbar-main-v2"
         item.isVisible = true
         item.menu = self.menu
         item.button?.imageScaling = .scaleNone
@@ -101,7 +101,6 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
         self.menu.addItem(self.headerItem())
         self.menu.addItem(.separator())
 
-        self.menu.addItem(self.disabledItem("Status: \(self.model.snapshot.status.label)"))
         self.menu.addItem(self.disabledItem("Active: \(self.model.snapshot.usage.activeJobs) jobs, \(self.model.snapshot.usage.activeVCPU) vCPU"))
         self.menu.addItem(self.disabledItem("Queued: \(self.model.snapshot.usage.queuedJobs) jobs"))
         self.menu.addItem(self.wrappingDisabledItem("API: \(self.model.snapshot.usage.debugSummary)"))
@@ -213,12 +212,34 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
 
     private func applyStatusItemAppearance() {
         guard let button = self.statusItem?.button else { return }
-        let image = StatusBarImage.render(snapshot: self.model.snapshot, history: self.model.history)
-        self.statusItem?.length = ceil(image.size.width) + 2
-        button.image = image
+        let image = StatusBarImage.renderGraph(
+            history: self.model.history,
+            active: self.model.snapshot.usage.activeVCPU
+        )
         image.isTemplate = false
-        button.imagePosition = .imageOnly
+        self.statusItem?.length = NSStatusItem.variableLength
+        button.title = ""
+        button.attributedTitle = self.statusTitle()
+        button.font = NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .semibold)
+        button.image = image
+        button.imagePosition = .imageRight
         button.toolTip = "BlackBar: \(self.model.snapshot.usage.activeVCPU) active vCPU"
+    }
+
+    private func statusTitle() -> NSAttributedString {
+        let needsStatusDot = self.model.snapshot.isOperational == false
+        let text = needsStatusDot ? "● \(self.model.snapshot.usage.activeVCPU)" : "\(self.model.snapshot.usage.activeVCPU)"
+        let title = NSMutableAttributedString(
+            string: text,
+            attributes: [
+                .font: NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .semibold),
+                .foregroundColor: NSColor.black
+            ]
+        )
+        if needsStatusDot {
+            title.addAttribute(.foregroundColor, value: NSColor.systemOrange, range: NSRange(location: 0, length: 1))
+        }
+        return title
     }
 
     private func scheduleTimer(interval: TimeInterval) {

